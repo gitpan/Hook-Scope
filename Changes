@@ -1,0 +1,6 @@
+Revision history for Perl extension Hook::Scope.
+
+0.01  Sun Jun  9 10:13:36 2002
+	- original version; created by h2xs 1.22 with options
+		--skip-autoloader -b5.5.0 -g -c -f Hook::Scope
+
