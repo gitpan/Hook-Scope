@@ -1,6 +1,7 @@
 Changes
 Makefile.PL
 MANIFEST
+SIGNATURE
 ppport.h
 README
 Scope.pm

@@ -21,7 +21,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 @EXPORT = qw();
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 bootstrap Hook::Scope $VERSION;
 
@@ -40,43 +40,41 @@ Hook::Scope - Perl extension for adding hooks for exiting a scope
     print "you will see this first!";
   }
  
-  use Hook::Scope qw(POST);
+  use Hook::Scope qw(POST);   # only POST can be exported
   {
     POST { print "foo" };
-    POST  sub { print "bar"};
+    POST  sub { print "bar"}; # can have multiple POSTs, last added, first run
   }
-
 
 =head1 ABSTRACT
 
-This module allows you to register hooks to run when the scope it 
-is registred in has been left.
+This module allows you to register subroutines to be executed when the scope 
+they were registered in, has been left.
 
 =head1 DESCRIPTION
 
 =head2 POST
 
 C<POST> takes a reference to a subroutine or a subroutine name and will 
-register a hook to run when the scope is left, note that even if the scope
-is left using die() the hook is run
+register that subroutine to be executed when the scope is left.  Note that
+even if the scope is left using die(), the subroutine will be executed.
 
 =head2 EXPORT
 
-None by default.
-
-
+None by default.  POST can be exported if so required.
 
 =head1 SEE ALSO
 
-l<Hook::LexWrap>
+L<Hook::LexWrap>
 
-Please report any bugs using the bug report interface at rt.cpan.org
+Please report any bugs using the bug report interface at rt.cpan.org or
+using E<lt>bug-Hook-Scope@rt.cpan.orgE<gt>
 
 =head1 AUTHOR
 
 Arthur Bergman, E<lt>abergman@cpan.orgE<gt>
 
-Thanks go to Nick Ing-Simmons for the wicked idea of LEAVE;ENTER;
+Thanks go to Nick Ing-Simmons for the wicked idea of LEAVE;ENTER;.
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -86,5 +84,3 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
-
-

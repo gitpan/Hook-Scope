@@ -1,5 +1,11 @@
 Revision history for Perl extension Hook::Scope.
 
+0.03  Sun Sep 22 13:01:59 CEST 2002
+	- [rt.cpan.org:1197] Applied documentation patch from
+	Elizabeth Mattijsen
+	- Uses Module::Signature to verify module with my gpg key
+	- Updated documentation to provide bug report email address	
+
 0.02  Sun Jun  9 23:56:08 CEST 2002
 	- Changed leave() to POST() after suggestion from
 	Rafael Garcia-Suarez to be more compatible with Perl6 naming.
