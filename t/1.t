@@ -11,7 +11,7 @@ use_ok("Hook::Scope");
 ok(1); # If we made it this far, we're ok.
 my $test1 = "hi";
 {
-  Hook::Scope::leave(sub { is($test1,"hi2"); $test1 = "hi3"});
+  Hook::Scope::POST(sub { is($test1,"hi2"); $test1 = "hi3"});
     is($test1,"hi");
     $test1 = "hi2";
 }
@@ -19,9 +19,9 @@ is($test1,"hi3");
 
 my $test2 = "1";
 {
-  Hook::Scope::leave(sub { is($test2,"4"); $test2 = 5});
+  Hook::Scope::POST(sub { is($test2,"4"); $test2 = 5});
     {
-      Hook::Scope::leave(sub { is($test2,"2"); $test2 = "3"});
+      Hook::Scope::POST(sub { is($test2,"2"); $test2 = "3"});
 	is($test2,"1");
 	$test2 = "2";
     }
@@ -32,12 +32,12 @@ is($test2, 5);
 
 {
     eval {
-      Hook::Scope::leave(sub { pass()});
+      Hook::Scope::POST(sub { pass()});
 	die();
     };
     eval {
 	{
-	  Hook::Scope::leave( sub { pass() });
+	  Hook::Scope::POST( sub { pass() });
 	    die;
 	}
     };
@@ -48,15 +48,15 @@ sub foobar {
     $test3 = 3;
 }
 {
-  Hook::Scope::leave('foobar');
+  Hook::Scope::POST('foobar');
     is($test3,1);
     $test3 = 2;
 }
 is($test3,3);
 {
-    use Hook::Scope qw(leave);
+    use Hook::Scope qw(POST);
     my $foo = 1;
-    leave { is($foo,2)};
+    POST { is($foo,2)};
     is($foo,1);
     $foo = 2;
 }

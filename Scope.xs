@@ -38,7 +38,7 @@ MODULE = Hook::Scope		PACKAGE = Hook::Scope
 PROTOTYPES: ENABLE
 
 void
-leave(SV* hook)
+POST(SV* hook)
 PROTOTYPE: &
 PPCODE:
 {

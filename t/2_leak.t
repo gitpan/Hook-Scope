@@ -23,7 +23,7 @@ is(<STDERR>, "", "Just checking so that plain scopes are safe");
 close(STDERR); open(STDERR, "+>leak.out") || die;
 Devel::Leak::NoteSV($handle);
 {
-  Hook::Scope::leave(sub { print STDERR "hi"});
+  Hook::Scope::POST(sub { print STDERR "hi"});
 }
 
 Devel::Leak::CheckSV($handle);
@@ -37,7 +37,7 @@ Devel::Leak::NoteSV($handle);
 {
     my $bar;
     my $foo = sub { $bar = "foo"; print STDERR "hi"};
-  Hook::Scope::leave($foo);
+  Hook::Scope::POST($foo);
 }
 Devel::Leak::CheckSV($handle);
 seek(STDERR,0,0);
@@ -48,7 +48,7 @@ Devel::Leak::NoteSV($handle);
 {
     eval {
 	{
-	  Hook::Scope::leave(sub { print STDERR "hi1" });
+	  Hook::Scope::POST(sub { print STDERR "hi1" });
 	    die;
 	}
     };

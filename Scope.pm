@@ -16,20 +16,14 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 # This allows declaration	use Hook::Scope ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-%EXPORT_TAGS = ( 'all' => [ qw(
-			       leave	
-			       ) ] );
 
-@EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
+@EXPORT_OK = qw( POST );
 
-@EXPORT = qw(
-);
+@EXPORT = qw();
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 bootstrap Hook::Scope $VERSION;
-
-
 
 1;
 __END__
@@ -42,14 +36,14 @@ Hook::Scope - Perl extension for adding hooks for exiting a scope
 
   use Hook::Scope; 
   {
-    Hook::Scope::leave(sub { print "I just left my scope"});
+    Hook::Scope::POST(sub { print "I just left my scope"});
     print "you will see this first!";
   }
  
-  use Hook::Scope qw(leave);
+  use Hook::Scope qw(POST);
   {
-    leave { print "foo" };
-    leave sub { print "bar"};
+    POST { print "foo" };
+    POST  sub { print "bar"};
   }
 
 
@@ -60,9 +54,9 @@ is registred in has been left.
 
 =head1 DESCRIPTION
 
-=head2 leave
+=head2 POST
 
-leave takes a reference to a subroutine or a subroutine name and will 
+C<POST> takes a reference to a subroutine or a subroutine name and will 
 register a hook to run when the scope is left, note that even if the scope
 is left using die() the hook is run
 
